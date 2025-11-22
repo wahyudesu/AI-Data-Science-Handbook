@@ -1,0 +1,10 @@
+{
+  "types": {
+    "aliases": "aliases",
+    "cssclasses": "multitext",
+    "tags": "tags",
+    "progress": "number",
+    "tes": "multitext",
+    "isi tiap bab": "text"
+  }
+}
