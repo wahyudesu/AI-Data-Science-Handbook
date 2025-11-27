@@ -26,7 +26,7 @@ language:
   - eng
 unique value: buku pedoman compact, tanpa bertele tele
 ---
-## Table of Contents
+##  Table of Contents
 - [[#Pengantar|Pengantar]]
 - [[#Data and Digital Use case|Data and Digital Use case]]
 	- [[#Data and Digital Use case#Understanding Data in AI Contexts|Understanding Data in AI Contexts]]
@@ -48,9 +48,14 @@ unique value: buku pedoman compact, tanpa bertele tele
 	- [[#Great Books on Everything Data and Machine Learning#Productivity and Habits|Productivity and Habits]]
 
 ## Pengantar
-==latar belakang dibuatnya buku ini buat apa==
 
-Materi tentang Data dan ML ini aku kurasi dari berbagai sumber dan pengalaman pribadi—mulai dari kuliah teknik sains data di kampus hingga pengalaman kerja—supaya kamu bisa langsung belajar hal-hal yang benar-benar penting, applicable, dan yang paling penting ber Bahasa Indonesia. 
+Data dan kecerdasan buatan (AI) sekarang udah jadi bagian penting di banyak bidang—bisnis, pendidikan, sampai riset ilmiah. Perkembangannya yang super cepat bikin kebutuhan akan orang yang paham data dan ML terus naik. Alhasil, kemampuan praktis dalam data science dan machine learning jadi skill wajib buat mahasiswa maupun praktisi yang pengin langsung turun ke dunia nyata.
+
+Masalahnya, materi belajar tentang data dan AI itu kebanyakan terlalu banyak dan nggak terarah. Di Indonesia sendiri, sumber yang ringkas, relevan, dan berbahasa Indonesia juga belum banyak. Banyak pilihan belajar yang makan waktu lama atau terlalu teoretis, sehingga bikin orang jadi bingung mulai dari mana. Padahal, banyak dari kita cuma butuh panduan praktis yang bisa langsung dipakai buat ngerjain proyek, ikut lomba, atau bikin solusi AI.
+
+Handbook ini disusun untuk menjawab kebutuhan tersebut. Dengan format yang compact, praktikal, dan mudah dipahami, buku ini membantu pembaca mempelajari dasar-dasar data science dan ML secara cepat dan cukup. Materi dikurasi dari pengalaman nyata, baik dari perkuliahan data science maupun dunia kerja, agar pembaca bisa langsung menerapkan konsep yang penting tanpa harus memilah-milah sumber yang rumit atau tidak relevan.
+
+Materi tentang Data dan ML ini aku kurasi dari berbagai sumber dan pengalaman pribadi mulai dari kuliah teknik sains data di kampus hingga pengalaman kerjasupaya kamu bisa langsung belajar hal-hal yang benar-benar penting, applicable, dan yang paling penting ber Bahasa Indonesia. 
 
 Cocok untuk:
 
@@ -67,6 +72,8 @@ Cocok untuk:
 gambar perbedaan AI/ML/DS sebagai dasar
 
 ---
+## Prerequisite
+==Menjelaskan pentingnya bahasa pyton dan mengapa python tu kepake banyak di data science dan machine learning dan ai hingga sekarang== 
 ## Data and Digital Use case
 ^[Jadi ini tuh bakal bahas apa itu data, format, jenis dan bentuknya serta fundamentalnya dalam konteks AI, bagaimana cara mengolah dan menggunakanya (digunakan untuk apa dan mengapa)]
 ### Understanding Data in AI Contexts
@@ -117,19 +124,19 @@ API-Based Sources: Real-time data pulls.
 - Twitter API for sentiment analysis data; OpenWeatherMap for climate data.
 - Custom Sources: Collect your own via surveys, sensors, or web scraping (ethically and legally).
 
-==final penutup dari data ini perlu diperbaiki, supaya catatan ini relevan==
-Checklist for Data
+==final penutup dari data ini perlu diperbaiki, supaya catatan ini lebih kepake==
+**Checklist for Data**
 
 □ Define your project's data needs (e.g., volume, type).
 □ Assess data quality: Is it accurate, complete, and unbiased?
 □ Document sources and preprocessing steps.
 
-Resources and whats next
+**Resources and whats next**
 
 - [https://mitsloan.mit.edu/ideas-made-to-matter/machine-learning-and-generative-ai-what-are-they-good-for](https://mitsloan.mit.edu/ideas-made-to-matter/machine-learning-and-generative-ai-what-are-they-good-for)
 - [https://www.potterclarkson.com/insights/what-data-is-used-to-train-an-ai-where-does-it-come-from-and-who-owns-it](https://www.potterclarkson.com/insights/what-data-is-used-to-train-an-ai-where-does-it-come-from-and-who-owns-it/)
 ## Data Analysis and Preprocessing
-
+^[teknik-teknik pada data processsing berdasarkan skenario sering ditemuin pada dataset, bagaimana cara memperoleh insight dan menangkap pola dari data melalui visualisasi dan perhitungan statistik ]
 ### Data Preprocessing
 
 Data preprocessing merupakan tahap krusial pada tahap awal dari persiapan data. Sebelum membangun model AI yang efektif, data harus benar-benar siap dan telah melalui serangkaian proses pembersihan serta transformasi.
@@ -139,9 +146,9 @@ Pada tahap ini, data mentah diolah menjadi bentuk yang lebih bersih, konsisten, 
 “If 80 percent of our work is data preparation, then ensuring data quality is the important work of a machine learning team.”
 – Andrew Ng
 
-Proses preprocessing mencakup berbagai aktivitas seperti penanganan missing values, deteksi outlier, normalisasi data, encoding kategorikal, hingga feature engineering. Setiap dataset memiliki karakteristik unik, sehingga teknik yang diterapkan perlu disesuaikan dengan konteks dan tujuan analisis spesifik.
+Proses preprocessing mencakup berbagai aktivitas seperti penanganan missing values, deteksi outlier, normalisasi data, encoding kategorikal, hingga feature engineering. Setiap dataset memiliki karakteristik unik, sehingga teknik yang diterapkan perlu disesuaikan dengan konteks dan tujuan analisis spesifik. Berikut beberapa skenario umum yang sering ditemui beserta cara penanganannya:
 
-==kode python sederhana tentang data preprocessing==
+**Bagaimana jika data punyaku ga lengkap?** (Missing Value Handling)
 
 Pada data yang kosong, terdapat cara sederhana yaitu mengisi dengan rata-rata (mean), median, atau nilai yang sering muncul (mode). Namun pada praktiknya, data yang hilang belum tentu cocok diisi dengan nilai statistik sederhana—tergantung pola dan konteks datanya.
 
@@ -161,8 +168,69 @@ df['column_2'].interpolate(method='polynomial', order=2)
 IterativeImputer(max_iter=10).fit_transform(df)
 ```
 
+**Fitur data milikku tidak seimbang? (Imbalance Dataset)**
+Pada data klasifikasi yang jumlah kelasnya timpang, model cenderung bias terhadap kelas mayoritas. Cara umum mengatasinya yaitu oversampling, undersampling, atau membuat bobot kelas saat training.
 
-==info ttg teknik teknik outlier handling, baca selengkapnya ==
+```python
+from imblearn.over_sampling import RandomOverSampler, SMOTE
+from imblearn.under_sampling import RandomUnderSampler
+
+# Oversampling sederhana
+X_res, y_res = RandomOverSampler().fit_resample(X, y)
+
+# SMOTE (sintetik)
+X_res, y_res = SMOTE().fit_resample(X, y)
+
+# Undersampling mayoritas
+X_res, y_res = RandomUnderSampler().fit_resample(X, y)
+
+# Class weight (untuk model tertentu)
+model = LogisticRegression(class_weight='balanced')
+```
+
+**Pada data yang kumiliki ada bbrapa point yang terlalu berbeda… (Outlier Handling)**
+Outlier bisa memengaruhi model, terutama model yang sensitif terhadap nilai ekstrem. Cara umum yaitu trimming, winsorizing, dan transformasi.
+
+
+**Terdapat bbrp data yang sama (Duplikasi data )**
+Data duplikat bisa membuat pola statistik terdistorsi. Solusinya yaitu pemeriksaan baris identik atau duplikasi berdasarkan subset kolom tertentu.
+
+
+**Bagaimana cara kalkulasi data kategorikal? (Encoding)**
+Data kategorikal harus diubah menjadi angka sebelum masuk model. Metode dasar yaitu one-hot, label encoding, atau target encoding untuk high-cardinality.
+
+```python
+from sklearn.preprocessing import OneHotEncoder, LabelEncoder
+import pandas as pd
+
+# Label Encoding
+df['color_le'] = LabelEncoder().fit_transform(df['color'])
+
+# One-hot encoding
+df = pd.get_dummies(df, columns=['city'])
+
+# Target encoding sederhana
+means = df.groupby('category')['target'].mean()
+df['category_te'] = df['category'].map(means)
+```
+
+**Format data tidak konsisten? (Inconsistent Data Format)**
+Perbedaan format tanggal, satuan, atau kapitalisasi bisa mengacaukan analisis. Hal umum adalah normalisasi format.
+
+```python
+import pandas as pd
+
+# Tanggal ke format seragam
+df['date'] = pd.to_datetime(df['date'], errors='coerce')
+
+# Normalisasi teks
+df['city'] = df['city'].str.strip().str.lower()
+
+# Konversi satuan (misal cm → m)
+df['height_m'] = df['height'].str.replace('cm','').astype(float) / 100
+```
+
+Dalam praktiknya ada banyak sekali skenario preprocessing di luar yang telah dibahas—mis. format tidak konsisten, missing values, imbalance, outlier, duplikasi, noise, dan data leakage. Teknik yang dipilih bergantung pada tujuan analisis atau model, karakteristik data, dan trade-off (akurasi vs interpretabilitas vs kompleksitas). Selalu uji efek preprocessing pada data validasi/tes dan dokumentasikan langkah yang diambil.
 
 > [!NOTE] Use Case Prompt for Analysis Scenario
 > - “Summarize this dataset for me. What trends or anomalies do you see?”
@@ -172,19 +240,45 @@ IterativeImputer(max_iter=10).fit_transform(df)
 > - “Explain this complex metric in simple terms.”
 > - “Draft an executive summary for my findings.”
 
-==tambahkan info ttg data mining di bagian ini, karena aku rasa data mining itu berhubungan dgn data preprocessing ini==
 ### EDA
+
+> [!NOTE] Data Preprocesssing dulu, apa EDA?
+> - Biasanya proses yang dilakukan adalah: mulai dari EDA dulu secara ringan, lalu data preprocessing—dan kedua langkah ini sering dilakukan secara iteratif dan saling melengkapi sesuai kebutuhan data dan tujuan analisis.​​​
 
 data cleaning dan processing itu part of penting
 
 “Exploratory data analysis refers to data analyses that are conducted to discover and explore unexpected patterns in the data, complementing confirmatory analyses and aiding in the formulation of new hypotheses.”
 
-– https://www.sciencedirect.com/topics/social-sciences/exploratory-data-analysis
+==butuh part buat jelasin ke jenis jenisyna==
+Data visualization and EDA can be great complementary tools to feature selection process, and they can be applied in the following ways:
 
-data mining
+1. **Univariate Analysis: Histogram** and **Bar Chart** help to visualize the distribution and variance of each variable
+2. **Correlation Analysis: Heatmap** facilitates the identification of highly correlated explanatory variables and reduce collinearity
+3. **Bivariate Analysis: Box plot** and **Grouped bar chart** help to spot the dependency and relationship between explanatory variables and response variable
 
-lorem ipsum
+**Correlation Analysis – Heatmap**
 
+Some algorithms demands the absence of collinearity in explanatory variables, including logistic regression which will be used for this exercise. Therefore, eliminating highly correlated features is an essential step to avoid this potential pitfall. Correlation analysis with heatmap visualization highlights pairs of features with high correlation coefficient.
+
+```python
+# correlation analysis
+plt.figure(figsize = (20,20))
+
+correlation = df.corr()
+sns.heatmap(correlation, cmap = “GnBu", annot = True)
+```
+
+**Bivariate Analysis – Box Plot and Grouped Bar Chart**
+
+Bivariate EDA investigates the relationship between each explanatory variable and the target variable. Categorical features and numerical variables are addressed using **grouped bar chart** and **box plot** respectively, and this exploration can further facilitate the statistical tests used in the filter methods, e.g. Chi-Square and ANOVA test.
+
+> _**Grouped bar chart is used as the visual representation of Chi-Square Analysis**_
+
+Each independent variable is set as the primary category. The target variable is set be be the secondary category using hue = "Attrition_Flag". As the result, it depicts whether the "Attrition_Flag" would vary in distribution across different level of the primary category. If two variables are independent, then we would expect the distribution to be the same across all levels.
+
+This is the same logic as Chi-Square test which calculates the difference between the observed value and expected value based on the assumption of independency. If there are no or little dependencies existing, we expect the ratio of each group of bars to be proportional to the ratio of attrited customers vs. existing customers. If the ratio is significantly different, then it suggests a high disparity between the observed value and expected value, which means high Chi-Square value, hence rejects the hypothesis that two variables are independent.
+
+After plotting all category variables against the target label, I found that _"Card_Category"_ seems to display a variation in ratio across _Blue, Gold, Silver and Platinum_. In the following section, we will find out if this is true according to the quantitative scoring based on filter method.
 ### Statistical Analysis
 
 Data cleaning dan processing itu penting, tetapi statistik tidak kalah esensial. Statistik merupakan metode matematika yang digunakan untuk memahami, menjelaskan, dan menjawab berbagai pertanyaan terkait data. Melalui statistik, data yang sudah diproses dapat dianalisis secara terukur sehingga menghasilkan insight yang valid dan dapat dipertanggungjawabkan
@@ -207,6 +301,7 @@ Dari exploratory data analysis hingga perancangan eksperimen untuk pengujian hip
 >- tidyr untuk data cleaning dan reshaping
 >- readr untuk data loading
 >- caret untuk modeling dan evaluasi
+
 
 ![[Pasted image 20251123005534.png]]
 
@@ -351,6 +446,7 @@ https://www.kaggle.com/code/shivanirana63/guide-to-complete-statistical-analysis
 https://pandas.pydata.org/docs/getting_started/intro_tutorials/06_calculate_statistics.html
 https://scipy-lectures.org/packages/statistics/
 https://www.statsmodels.org/stable/gettingstarted.html
+https://www.itl.nist.gov/div898/handbook/index.htm
 %%
 
 ### Feature Engineering
@@ -361,34 +457,41 @@ Dalam praktiknya, terutama ketika dealing dengan dataset besar (ratusan ribu hin
 
 Ada banyak teknik dalam feature engineering, dari feature selection hingga synthetic data generation. Di handbook ini, kita fokus ke teknik yang paling sering dipakai dan directly applicable.
 
-**1. Feature Selection** Memilih subset features yang paling relevan dari dataset. Tujuannya mengurangi noise, mempercepat training, dan improve model performance.
+1. **Feature Selection** Memilih subset features yang paling relevan dari dataset. Tujuannya mengurangi noise, mempercepat training, dan improve model performance.
 
 Contoh sederhana:
 - Dari `height` dan `weight` → create `BMI = weight / (height²)`
 - Dari `purchase_date` dan `current_date` → create `days_since_purchase`
 - Dari `total_amount` dan `quantity` → create `average_price_per_item`
 
-**2. Feature Extraction** Membuat features baru dari kombinasi features yang sudah ada. Contohnya membuat feature "BMI" dari height dan weight.
+2. **Feature Extraction** Membuat features baru dari kombinasi features yang sudah ada. Contohnya membuat feature "BMI" dari height dan weight.
 
-**3. Handling Imbalanced Data**
+3. **Feature Scaling**
 
-- **Upsampling**: Menambah jumlah samples dari minority class
-- **Downsampling**: Mengurangi samples dari majority class
-- **Synthetic Data**: Generate data baru (seperti SMOTE) untuk balance dataset
+### Data Mining
 
-==feature engineering ini mirip mirip partnya kayak , kamu bisa eksplor banyak soal feature engineering, seperti Feature selection
-Feature extraction
-Vector embedding
-Latent space
-Dimensionality reduction
-Upsampling
-Downsampling
-Synthetic data
-Data leakage cuman kita make eberapa metode hal yang paling sering dipake dan use casenya
-untuk memenuhi tujuan tersebut, beberapa tekniknya tuh
-Feature Selection(dijabarkan lagi dlm listt)==
+Data mining adalah proses mengekstraksi pola, struktur, atau informasi yang sebelumnya tidak terlihat dari suatu dataset. Di dalamnya digunakan keterampilan **data preprocessing**, teknik **eksplorasi**, dan sering kali algoritma **machine learning** seperti clustering, classification, association rules, dan anomaly detection.
+
+kamu bisa belajar machine learning dengan teknik reversel, reverse artinya belajar dari penerapan terlebih dahulu, baru selanjutnya mempelajari bagaimana perhitungan matematika di baliknya
+
+berikut contoh proyek data mining yang sebagai contoh dari teknik teknik yang telah dipelajari sebelumnya
+
+==ini masih dummy dan perlu diganti dgn notebook yg lebih sesuai==
+
+**1. House Prices – Advanced Regression Techniques (Kaggle)**  
+Proses: data cleaning → feature engineering (log transform, ordinal encoding) → model comparison → tuning.  
+Model akhir: **XGBoost Regressor**.
+
+**2. Titanic – Machine Learning from Disaster**  
+Proses: imputasi umur & fare → encoding kategori → handling imbalance → baseline model → evaluasi akurasi.  
+Model akhir: **Random Forest Classifier**.
+
+**3. Customer Segmentation (K-Means Clustering)**  
+Proses: scaling fitur (Income, Spending Score) → mencari k optimal (Elbow) → segmentasi visual → interpretasi cluster.  
+Model akhir: **K-Means**.
+
 ## Model and Evaluation
-
+^[penjelasan ml, dan ngasih tahu gambaran ml secara parktikal, beserta contoh kode sederhana yaitu linear regresi, mengenalkan jenis jenis ml beserta cara mengatasinya dalam bberapa situasi
 ### Core Concepts of Machine Learning
 
 Machine learning (ML) adalah bagian dari artificial intelligence (AI) yang memungkinkan komputer belajar dari data untuk membuat prediksi atau keputusan tanpa diprogram secara manual untuk setiap kasus.
@@ -538,21 +641,43 @@ Pemilihan strategi validation bergantung pada tiga hal: ukuran dataset, tipe pro
 | LOOCV                   | Small datasets, high precision  | Maximum data use       | Very slow, overkill for large sets |
 
 ### Hyperparameter tuning
-^[metode hyper parameter dalam bentuk list, serta contoh plot plot nya, harus ada kode sih disini, tips library utk auto dari model hingga parameternya]
+^[dari pengembangan model ke penjelasan hyperparameter, 2 metode hyperparameter tuning beserta plot dan code, automated hyperparameter tuning]
 
 Dalam pengembangan model machine learning, terdapat dua jenis parameter yang perlu dipahami dengan baik:
 
-Model Parameters (Weights): Parameter yang dipelajari oleh model secara otomatis selama proses training, seperti koefisien dalam regresi linear atau weight dalam neural network.
+- Model Parameters (Weights): Parameter yang dipelajari oleh model secara otomatis selama proses training, seperti koefisien dalam regresi linear atau weight dalam neural network.
 
-Hyperparameters: Parameter yang tidak dipelajari oleh model tetapi harus diatur secara manual sebelum training dimulai. Hyperparameter memiliki pengaruh signifikan terhadap performa model dan bagaimana model belajar dari data.
+- Hyperparameters: Parameter yang tidak dipelajari oleh model tetapi harus diatur secara manual sebelum training dimulai. Hyperparameter memiliki pengaruh signifikan terhadap performa model dan bagaimana model belajar dari data.
 
 Hyperparameter tuning adalah proses sistematis mencari nilai-nilai optimal untuk hyperparameter agar model mencapai performa terbaik. Proses ini merupakan langkah krusial dalam mengembangkan model machine learning yang efektif dan dapat diandalkan.
+
+> [!NOTE] 
+> 
+| Parameters                  | Hyperparameters         |
+| --------------------------- | ----------------------- |
+| Intrinsic to model equation | Defined before training |
+| Optimized during training   | Constrain the algorithm |
+The process of finding the best Hyperparameters for a given dataset is called Hyperparameter Tuning or Hyperparameter Optimization.
+
+==merancang metode metode hyperparameter tuning==
+Methods
+
+Different hyperparamete optimization strategies:
+
+> - Manual Search
+> - Grid Search
+> - Random Search
+> - Bayesian Optimization
+
+==automated hyperparameter tuning==
+
 
 ==perlu quotes==
 
 %%
 [https://www.kaggle.com/discussions/general/171856](https://www.kaggle.com/discussions/general/171856)
 [https://www.kaggle.com/code/faressayah/hyperparameter-optimization-for-machine-learning](https://www.kaggle.com/code/faressayah/hyperparameter-optimization-for-machine-learning)
+https://www.kaggle.com/code/shreayan98c/hyperparameter-tuning-tutorial#Logistic-Regression
 %%
 ### Ensemble Learning
 ^[]

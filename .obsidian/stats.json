@@ -46,38 +46,38 @@
       "totalPages": 17.4
     },
     "2025-11-27": {
-      "words": 285,
-      "characters": 2675,
-      "sentences": 0,
-      "pages": 1,
+      "words": 1441,
+      "characters": 11394,
+      "sentences": 59,
+      "pages": 4.800000000000001,
       "files": 2,
-      "footnotes": 3,
+      "footnotes": 4,
       "citations": 0,
-      "totalWords": 5515,
-      "totalCharacters": 42780,
-      "totalSentences": 200,
-      "totalFootnotes": 27652,
-      "totalCitations": 28059,
-      "totalPages": 18.4
+      "totalWords": 6671,
+      "totalCharacters": 51499,
+      "totalSentences": 259,
+      "totalFootnotes": 4,
+      "totalCitations": 0,
+      "totalPages": 22.2
     }
   },
   "modifiedFiles": {
     "Data-AI-Handbook.md": {
       "words": {
         "initial": 5229,
-        "current": 5514
+        "current": 6670
       },
       "characters": {
         "initial": 40091,
-        "current": 42766
+        "current": 51485
       },
       "sentences": {
         "initial": 199,
-        "current": 199
+        "current": 258
       },
       "footnotes": {
         "initial": 0,
-        "current": 3
+        "current": 4
       },
       "citations": {
         "initial": 0,
@@ -85,7 +85,7 @@
       },
       "pages": {
         "initial": 17.4,
-        "current": 18.4
+        "current": 22.2
       }
     }
   }
