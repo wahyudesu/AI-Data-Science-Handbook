@@ -13,33 +13,37 @@ tags:
   - AI
   - Mahasiswa
 version: "0.9"
-progress: 60
-isi tiap bab: |-
-  paragraf: penjelasan, penjabaran teori
-  bullet list : resources, checklist
-  table: perbandingan, penjelasan dari jenis jenis
-  gambar: intinya gambar punya orang untuk mempermudah memahami sesuatu
-  kode: kode contoh penggunaan library/framework, penggunaan
-  quotes: bisa berupa recommendation, question,
+progress: 75
 language:
   - id
   - eng
 unique value: buku pedoman compact, tanpa bertele tele
 ---
 ##  Table of Contents
+- [[#Table of Contents|Table of Contents]]
 - [[#Pengantar|Pengantar]]
+- [[#Prerequisite|Prerequisite]]
 - [[#Data and Digital Use case|Data and Digital Use case]]
 	- [[#Data and Digital Use case#Understanding Data in AI Contexts|Understanding Data in AI Contexts]]
 	- [[#Data and Digital Use case#How AI work with Data|How AI work with Data]]
 	- [[#Data and Digital Use case#Where to Get Data|Where to Get Data]]
 - [[#Data Analysis and Preprocessing|Data Analysis and Preprocessing]]
 	- [[#Data Analysis and Preprocessing#Data Preprocessing|Data Preprocessing]]
+	- [[#Data Analysis and Preprocessing#EDA|EDA]]
+	- [[#Data Analysis and Preprocessing#Statistical Analysis|Statistical Analysis]]
+		- [[#Statistical Analysis#Descriptive Statistics|Descriptive Statistics]]
+			- [[#Descriptive Statistics#Measure of Central Tendancy|Measure of Central Tendancy]]
+			- [[#Descriptive Statistics#Measure of Variability/Dispersion|Measure of Variability/Dispersion]]
+			- [[#Descriptive Statistics#Shape of Data|Shape of Data]]
+		- [[#Statistical Analysis#Inferential Statistics|Inferential Statistics]]
+	- [[#Data Analysis and Preprocessing#Feature Engineering|Feature Engineering]]
+	- [[#Data Analysis and Preprocessing#Data Mining|Data Mining]]
 - [[#Model and Evaluation|Model and Evaluation]]
 	- [[#Model and Evaluation#Core Concepts of Machine Learning|Core Concepts of Machine Learning]]
 	- [[#Model and Evaluation#Types of Machine Learning|Types of Machine Learning]]
-	- [[#Model and Evaluation#Model Training and Validation data|Model Training and Validation data]]
+	- [[#Model and Evaluation#Model Training and Evaluation data|Model Training and Evaluation data]]
 	- [[#Model and Evaluation#Hyperparameter tuning|Hyperparameter tuning]]
-	- [[#Model and Evaluation#Ensemble and Stacking|Ensemble and Stacking]]
+	- [[#Model and Evaluation#Ensemble Learning|Ensemble Learning]]
 - [[#Great Books on Everything Data and Machine Learning|Great Books on Everything Data and Machine Learning]]
 	- [[#Great Books on Everything Data and Machine Learning#AI and Machine Learning|AI and Machine Learning]]
 	- [[#Great Books on Everything Data and Machine Learning#Kaggle and Interviews|Kaggle and Interviews]]
@@ -73,7 +77,9 @@ gambar perbedaan AI/ML/DS sebagai dasar
 
 ---
 ## Prerequisite
-==Menjelaskan pentingnya bahasa pyton dan mengapa python tu kepake banyak di data science dan machine learning dan ai hingga sekarang== 
+Python jadi pilihan utama di AI karena syntaxnya paling mudah dipelajari dan struktur-nya mendekati bahasa manusia—jadi kamu bisa langsung fokus ke problem solving tanpa tersangkut detail teknis. Kemudahan ini bikin prototyping berjalan cepat, dan speed itu penting banget dalam AI development yang sifatnya iteratif dan butuh banyak trial-and-error.
+
+Terus, ekosistem Python untuk AI itu beneran lengkap. PyTorch dan TensorFlow yang kamu pakai untuk neural networks, NumPy dan Pandas untuk data processing sebelum training—semuanya ada dan matang. Kombinasi library yang comprehensive, komunitas besar yang terus update dengan teknologi AI terbaru, plus backing dari perusahaan tech global, membuat Python tetap jadi bahasa yang biasanya jadi first choice di riset dan development AI.
 ## Data and Digital Use case
 ^[Jadi ini tuh bakal bahas apa itu data, format, jenis dan bentuknya serta fundamentalnya dalam konteks AI, bagaimana cara mengolah dan menggunakanya (digunakan untuk apa dan mengapa)]
 ### Understanding Data in AI Contexts
@@ -136,8 +142,9 @@ API-Based Sources: Real-time data pulls.
 - [https://mitsloan.mit.edu/ideas-made-to-matter/machine-learning-and-generative-ai-what-are-they-good-for](https://mitsloan.mit.edu/ideas-made-to-matter/machine-learning-and-generative-ai-what-are-they-good-for)
 - [https://www.potterclarkson.com/insights/what-data-is-used-to-train-an-ai-where-does-it-come-from-and-who-owns-it](https://www.potterclarkson.com/insights/what-data-is-used-to-train-an-ai-where-does-it-come-from-and-who-owns-it/)
 ## Data Analysis and Preprocessing
-^[teknik-teknik pada data processsing berdasarkan skenario sering ditemuin pada dataset, bagaimana cara memperoleh insight dan menangkap pola dari data melalui visualisasi dan perhitungan statistik ]
+
 ### Data Preprocessing
+^[teknik-teknik pada data processsing berdasarkan skenario sering ditemuin pada dataset, bagaimana cara memperoleh insight dan menangkap pola dari data melalui visualisasi dan perhitungan statistik, lalu ditutup dengan prompt yang bisa dicoba untuk analisis data ]
 
 Data preprocessing merupakan tahap krusial pada tahap awal dari persiapan data. Sebelum membangun model AI yang efektif, data harus benar-benar siap dan telah melalui serangkaian proses pembersihan serta transformasi.
 
@@ -241,22 +248,25 @@ Dalam praktiknya ada banyak sekali skenario preprocessing di luar yang telah dib
 > - “Draft an executive summary for my findings.”
 
 ### EDA
+^[jenis jenis EDA dan bagaimana cara menanganinya, untuk vidualisasi bbrp library yg bisa dipake apa aja]
+==problem dari EDA ini aku rasa kurang klep deh, sama yg lain==
 
 > [!NOTE] Data Preprocesssing dulu, apa EDA?
 > - Biasanya proses yang dilakukan adalah: mulai dari EDA dulu secara ringan, lalu data preprocessing—dan kedua langkah ini sering dilakukan secara iteratif dan saling melengkapi sesuai kebutuhan data dan tujuan analisis.​​​
 
-data cleaning dan processing itu part of penting
+EDA adalah proses eksplorasi data untuk menemukan pola, anomali, dan insight, sebelum kita masuk ke tahap modelling. Data visualization dan EDA merupakan kombinasi yang powerful untuk memahami karakteristik dataset kita. Berikut pendekatan yang bisa kamu terapkan:
 
-“Exploratory data analysis refers to data analyses that are conducted to discover and explore unexpected patterns in the data, complementing confirmatory analyses and aiding in the formulation of new hypotheses.”
+1. **Univariate Analysis:** Gunakan [Histogram](https://id.wikipedia.org/wiki/Histogram) dan [Bar Chart](https://en.wikipedia.org/wiki/Bar_chart) untuk visualisasi distribusi dan varians tiap variabel
+2. **Correlation Analysis:** Heatmap membantu identifikasi variabel yang highly correlated dan mengurangi masalah [multikolinearitas](https://en.wikipedia.org/wiki/Multicollinearity)
+3. **Bivariate Analysis:** Box plot dan Grouped bar chart untuk melihat hubungan antar variabel independen dengan variabel target
 
-==butuh part buat jelasin ke jenis jenisyna==
-Data visualization and EDA can be great complementary tools to feature selection process, and they can be applied in the following ways:
+**Univariate Analysis – Histogram and Bar Chart**
 
-1. **Univariate Analysis: Histogram** and **Bar Chart** help to visualize the distribution and variance of each variable
-2. **Correlation Analysis: Heatmap** facilitates the identification of highly correlated explanatory variables and reduce collinearity
-3. **Bivariate Analysis: Box plot** and **Grouped bar chart** help to spot the dependency and relationship between explanatory variables and response variable
+To obtain an overview of distribution, firstly let’s classify features in to categorical and numerical variables, then visualize categorical features using bar chart and numerical features using histogram. Visualizing the distribution gives suggestions on whether the data points are more dense or more spread out, hence whether the variance is low or high. Low variance features tend to contribute less to the prediction of outcome variable.
 
 **Correlation Analysis – Heatmap**
+
+Misal kita mau menggunakan model logistic regression, untuk mencari tahu fitur mana yang paling mirip dan berkorelasi tinggi
 
 Some algorithms demands the absence of collinearity in explanatory variables, including logistic regression which will be used for this exercise. Therefore, eliminating highly correlated features is an essential step to avoid this potential pitfall. Correlation analysis with heatmap visualization highlights pairs of features with high correlation coefficient.
 
@@ -268,18 +278,38 @@ correlation = df.corr()
 sns.heatmap(correlation, cmap = “GnBu", annot = True)
 ```
 
+==tambah contoh plot beserta kesimpulan pendeknya==
 **Bivariate Analysis – Box Plot and Grouped Bar Chart**
 
-Bivariate EDA investigates the relationship between each explanatory variable and the target variable. Categorical features and numerical variables are addressed using **grouped bar chart** and **box plot** respectively, and this exploration can further facilitate the statistical tests used in the filter methods, e.g. Chi-Square and ANOVA test.
+Setelah korelasi tiap variabel. Untuk fitur kategorikal gunakan grouped bar chart, sementara untuk variabel numerik gunakan box plot. Eksplorasi ini juga mempermudah statistical tests yang digunakan dalam filter methods, seperti Chi-Square dan ANOVA test.
 
 > _**Grouped bar chart is used as the visual representation of Chi-Square Analysis**_
 
+Tiap independen variab
 Each independent variable is set as the primary category. The target variable is set be be the secondary category using hue = "Attrition_Flag". As the result, it depicts whether the "Attrition_Flag" would vary in distribution across different level of the primary category. If two variables are independent, then we would expect the distribution to be the same across all levels.
 
 This is the same logic as Chi-Square test which calculates the difference between the observed value and expected value based on the assumption of independency. If there are no or little dependencies existing, we expect the ratio of each group of bars to be proportional to the ratio of attrited customers vs. existing customers. If the ratio is significantly different, then it suggests a high disparity between the observed value and expected value, which means high Chi-Square value, hence rejects the hypothesis that two variables are independent.
 
 After plotting all category variables against the target label, I found that _"Card_Category"_ seems to display a variation in ratio across _Blue, Gold, Silver and Platinum_. In the following section, we will find out if this is true according to the quantitative scoring based on filter method.
+
+```python
+# grouped bar chart
+for 1 in range(8, len(cat_list)):
+	primary_cat = cat_list[i]
+	plt.figure (figsize = (8,8))
+	chart = sns.countplot(
+		data = df,
+		primary_cat,
+		hue= "Attrition_Flag",
+		palette = 'GnBu’,
+```
+
+%%
+https://neptune.ai/blog/feature-selection-methods
+https://towardsdatascience.com/feature-selection-and-eda-in-python-c6c4eb1058a3/
+%%
 ### Statistical Analysis
+^[jabaran dari 2 jenis metode beserta teori teori di dalamnya, statisticnya]
 
 Data cleaning dan processing itu penting, tetapi statistik tidak kalah esensial. Statistik merupakan metode matematika yang digunakan untuk memahami, menjelaskan, dan menjawab berbagai pertanyaan terkait data. Melalui statistik, data yang sudah diproses dapat dianalisis secara terukur sehingga menghasilkan insight yang valid dan dapat dipertanggungjawabkan
 
@@ -450,6 +480,7 @@ https://www.itl.nist.gov/div898/handbook/index.htm
 %%
 
 ### Feature Engineering
+^[jenis-jenis dan penjabarannya]
 
 Feature engineering adalah bagian dari data preprocessing, tapi ini adalah part yang paling spesifik dan membutuhkan domain knowledge yang dalam. Berbeda dengan cleaning atau normalisasi yang bisa mengikuti standard procedure, feature engineering requires pemahaman tentang problem domain—kamu perlu tahu features mana yang benar-benar meaningful dan bagaimana cara mengekstrak signal dari noise.
 
@@ -458,6 +489,11 @@ Dalam praktiknya, terutama ketika dealing dengan dataset besar (ratusan ribu hin
 Ada banyak teknik dalam feature engineering, dari feature selection hingga synthetic data generation. Di handbook ini, kita fokus ke teknik yang paling sering dipakai dan directly applicable.
 
 1. **Feature Selection** Memilih subset features yang paling relevan dari dataset. Tujuannya mengurangi noise, mempercepat training, dan improve model performance.
+==rada effort cuy, feature selection ni jgn panjang panjang, hrus pas di 2 halaman==
+
+ada 2 jenis/cara terkait pendekatan selection: filter method dan wrapper method
+The fundamental difference is that filter method evaluates the feature importance based on statistical tests such as Chi-Square, ANOVA etc, whereas wrapper method iteratively assessed the performance of subsets of features based the performance of models generated by these features.
+
 
 Contoh sederhana:
 - Dari `height` dan `weight` → create `BMI = weight / (height²)`
@@ -467,6 +503,8 @@ Contoh sederhana:
 2. **Feature Extraction** Membuat features baru dari kombinasi features yang sudah ada. Contohnya membuat feature "BMI" dari height dan weight.
 
 3. **Feature Scaling**
+
+ada istilah istilah yang lebih dalam lagi yaitu 
 
 ### Data Mining
 
@@ -491,8 +529,9 @@ Proses: scaling fitur (Income, Spending Score) → mencari k optimal (Elbow) →
 Model akhir: **K-Means**.
 
 ## Model and Evaluation
-^[penjelasan ml, dan ngasih tahu gambaran ml secara parktikal, beserta contoh kode sederhana yaitu linear regresi, mengenalkan jenis jenis ml beserta cara mengatasinya dalam bberapa situasi
+
 ### Core Concepts of Machine Learning
+^[penjelasan ml, dan ngasih tahu gambaran ml secara parktikal, beserta contoh kode sederhana yaitu linear regresi, mengenalkan jenis jenis ml beserta cara mengatasinya dalam berapa situasi]
 
 Machine learning (ML) adalah bagian dari artificial intelligence (AI) yang memungkinkan komputer belajar dari data untuk membuat prediksi atau keputusan tanpa diprogram secara manual untuk setiap kasus.
 
@@ -591,7 +630,7 @@ flowchart TD
 | LangChain                 | LLM apps                            | Prompt chaining, memory management         | Complex workflows, agents                 |
 
 
-Pada penerapannya itu tergantung masalah nyata—jangan pakai yang berat jika sederhana cukup. Start simple, scale when proven.
+Pada penerapannya itu tergantung problemnya, jangan pakai yang berat jika problem yang ditemuin sederhana cukup. _Start simple, scale when proven._
 
 - Gunakan ML Klasik untuk prediksi tabular, klasifikasi, atau clustering: cepat, ringan, dan mudah dijelaskan. Cocok untuk churn prediction, fraud detection, sales forecasting. Contoh: [Customer Churn](https://github.com/khanhnamle1994/customer-churn-prediction) | [Fraud Detection](https://github.com/nsethi31/Kaggle-Data-Credit-Card-Fraud-Detection)
 - Gunakan Deep Learning untuk gambar, audio, atau video: butuh GPU dan data besar, tapi akurasi tinggi. Cocok untuk computer vision, speech recognition, medical imaging. Contoh: [YOLO Object Detection](https://github.com/ultralytics/yolov5) | [Face Recognition](https://github.com/ageitgey/face_recognition)
@@ -639,11 +678,11 @@ Pemilihan strategi validation bergantung pada tiga hal: ukuran dataset, tipe pro
 | K-Fold Cross-Validation | Most general supervised tasks   | Robust, efficient      | Slower than holdout                |
 | Stratified K-Fold       | Imbalanced classification tasks | Preserves class ratios | Slightly more complex              |
 | LOOCV                   | Small datasets, high precision  | Maximum data use       | Very slow, overkill for large sets |
-
+==perlu penutup keknya==
 ### Hyperparameter tuning
 ^[dari pengembangan model ke penjelasan hyperparameter, 2 metode hyperparameter tuning beserta plot dan code, automated hyperparameter tuning]
 
-Dalam pengembangan model machine learning, terdapat dua jenis parameter yang perlu dipahami dengan baik:
+Dalam pengembangan model machine learning, terdapat dua jenis parameter yang perlu kamu ketahui:
 
 - Model Parameters (Weights): Parameter yang dipelajari oleh model secara otomatis selama proses training, seperti koefisien dalam regresi linear atau weight dalam neural network.
 
@@ -655,12 +694,12 @@ Hyperparameter tuning adalah proses sistematis mencari nilai-nilai optimal untuk
 > 
 | Parameters                  | Hyperparameters         |
 | --------------------------- | ----------------------- |
-| Intrinsic to model equation | Defined before training |
-| Optimized during training   | Constrain the algorithm |
-The process of finding the best Hyperparameters for a given dataset is called Hyperparameter Tuning or Hyperparameter Optimization.
+| Bagian dari pendefinisian model | Didefinisikan sebelum proses training |
+| Dioptimasi selama proses training  | Membatasi algoritma model |
+Proses mencari hyperparameter terbaik untuk dataset tertentu disebut Hyperparameter Tuning atau Hyperparameter Optimization.
 
 ==merancang metode metode hyperparameter tuning==
-Methods
+Methods methodsnya
 
 Different hyperparamete optimization strategies:
 
@@ -680,7 +719,8 @@ Different hyperparamete optimization strategies:
 https://www.kaggle.com/code/shreayan98c/hyperparameter-tuning-tutorial#Logistic-Regression
 %%
 ### Ensemble Learning
-^[]
+^[jenis-jenis dan penerapannya dalam beberapa studi kasus, ringkasan algoritma serta teknik teknik lainnya]
+==bakal panjang ini wak, klo di handbook bakal >3 halaman dah==
 
 Kalau kamu sering eksplor kompetisi Kaggle, kamu pasti notice bahwa top performers di leaderboard sering bukan pakai deep learning—mereka pakai ensemble methods. Teknik ini consistently menghasilkan akurasi tinggi dan sering jadi game changer dalam kompetisi.
 
@@ -688,9 +728,9 @@ Tapi seberapa powerful sebenarnya ensemble ini? Surprisingly, konsepnya cukup st
 
 Prosesnya begini: setelah kita train beberapa model dengan performa yang bagus (bisa berbeda algoritma atau hyperparameter), kita combine prediksi mereka. Yang sering terjadi adalah hasil ensemble ini lebih robust dan akurat dibanding individual models.
 
-==jenis-jenis ensemble dalam gambar==
+==perlu ditambahin apa gw gtau==
 
-**Algorithm overview**
+**Ensemble Algorithm overview**
 
 | Name                           | Representation                   | Loss function           | Optimization        | Regularization          |
 | ------------------------------ | -------------------------------- | ----------------------- | ------------------- | ----------------------- |
@@ -719,6 +759,7 @@ https://www.kaggle.com/code/anuragbantu/stacking-ensemble-learning-beginner-s-gu
 https://ml-course.github.io/master/notebooks/04%20-%20Ensemble%20Learning.html
 %%
 ## Great Books on Everything Data and Machine Learning
+^[ditutup dengan resources buku yang bisa dibaca dan bagus untuk belajar data dan ml]
 
 ### AI and Machine Learning
 
