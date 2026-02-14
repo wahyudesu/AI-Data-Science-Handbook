@@ -1076,7 +1076,6 @@ Meskipun stacking terkesan kompleks, namun menggunakan stacking dapat meningkatk
 - Cross-validation selection: does internal cross-validation to select best of $M$ models
 - Any combination of different ensembling techniques
 
-### Wahyuu Yuhuuu
 
 %%
 [https://www.youtube.com/watch?v=LsPi2wPZft8](https://www.youtube.com/watch?v=LsPi2wPZft8)
