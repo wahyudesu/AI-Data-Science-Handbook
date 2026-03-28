@@ -44,7 +44,10 @@ unique value: buku pedoman compact, tanpa bertele tele
 	- [[#Model and Evaluation#Model Training and Evaluation data|Model Training and Evaluation data]]
 	- [[#Model and Evaluation#Hyperparameter tuning|Hyperparameter tuning]]
 	- [[#Model and Evaluation#Ensemble Learning|Ensemble Learning]]
-- [[#Model and evaluasi|Model]]
+- [[#Deep Learning, PyTorch, dan Era Generative AI|Deep Learning, PyTorch, dan Era Generative AI]]
+	- [[#Membangun Neural Network dengan PyTorch|Build a Neural Network]]
+	- [[#Transfer Learning|Transfer Learning]]
+	- - [[#Large Language Models (LLM) dan Text Geneartion|Large Language Models]]
 - [[#Great Books on Everything Data and Machine Learning|Great Books on Everything Data and Machine Learning]]
 	- [[#Great Books on Everything Data and Machine Learning#AI and Machine Learning|AI and Machine Learning]]
 	- [[#Great Books on Everything Data and Machine Learning#Kaggle and Interviews|Kaggle and Interviews]]
@@ -1079,8 +1082,8 @@ Meskipun stacking terkesan kompleks, namun menggunakan stacking dapat meningkatk
 
 
 ## Deep Learning, PyTorch, dan Era Generative AI
-### Membangun Neural Network dengan PyTorch
-^[Bab ini fokus pada transisi dari machine learning klasik ke deep learning, implementasi neural network menggunakan PyTorch, teknik transfer learning untuk efisiensi komputasi, dan pengenalan praktis terhadap Large Language Models (LLM).]
+### Build Neural Network With PyTorch
+^[transisi dari machine learning klasik ke deep learning, implementasi neural network menggunakan PyTorch]
 Kalau di bab sebelumnya kita membahas algoritma ML klasik yang luar biasa efisien untuk data tabular, sekarang kita masuk ke ranah data yang tidak terstruktur (unstructured data) seperti gambar, audio, dan teks bahasa alami yang kompleks. Di sinilah _Deep Learning_ (DL) bersinar.
 
 Deep Learning menggunakan arsitektur _Artificial Neural Network_ (ANN) yang terinspirasi dari jaringan saraf otak. Alih-alih melakukan _feature engineering_ secara manual (seperti mencari tepi gambar atau menghitung frekuensi kata), model DL mampu mengekstraksi fitur-fitur tersebut secara hierarkis dan otomatis langsung dari data mentah.
@@ -1128,7 +1131,8 @@ print(prediksi.shape) # Output: torch.Size([5, 2])
 
 %% Referensi: Paszke, A., et al. (2019). PyTorch: An Imperative Style, High-Performance Deep Learning Library. %%
 
-**Transfer Learning**
+### Transfer Learning
+^[Subbab ini membahas efisiensi Transfer Learning, yakni teknik mengadaptasi model yang sudah cerdas (_pre-trained_) untuk menyelesaikan masalah spesifik dengan data dan komputasi yang minimal.]
 Membangun dan melatih model deep learning dari nol (*from scratch*) membutuhkan dataset raksasa (jutaan sampel) dan komputasi GPU yang mahal berhari-hari. Di dunia nyata , solusi untuk masalah ini adalah ==Tranfer Learning==. 
 Idenya sederhana : Kita mengambil "otak" dari model yang sudah dilatih oleh raksasa teknologi pada dataset masif (seperti Imagenet yang berisi 14 juta gambar), lalu kita sesuaikan sedikit untuk tugas spesifik kita. 
 
@@ -1156,10 +1160,70 @@ model_tl.fc = nn.Linear(num_ftrs, 3)
 
 %% He, K., et al. (2016). Deep Residual Learning for Image Recognition. CVPR. %%
 
-**Large Language Models (LLM) dan Text Geneartion** 
+### Large Language Models (LLM) dan Text Geneartion
+^[Subbab ini memperkenalkan fondasi Large Language Models (LLM) beserta arsitektur Transformer dan mekanisme _Self-Attention_ yang merevolusi kemampuan AI dalam memahami dan menghasilkan teks.]
 Perkembangan  masif di era AI saat ini didorong oleh model berbasis arsitektur [Transformer](https://www.ibm.com/think/topics/transformer-model). Berbeda dengan model teks jadul (RNN/LSTM) yang membaca kalimat kata per kata, Transformer memproses seluruh kata secara paralel.
 
 Rahasia utamanya ada pada mekanisme ==Self-Attention==. Mekanisme ini memungkinkan model untuk menimbang tingkat pentingnya setiap kata terhadap kata lain dalam satu kalimat, terlepas dari seberapa jauh jaraknya . Inilah cikal bakal lahirnya model raksasa (LLM) seperti GPT, BERT, Llama, dan Claude. 
+
+## Advance LLM Implementation
+### Mastering LLM Control : Prompt Engineering & Fine-Tuning
+^[Subbab ini membahas teknik mengendalikan output LLM, mulai dari rekayasa prompt (Zero-Shot, Few-Shot, Chain-of-Thought) hingga penyesuaian model menggunakan teknik Parameter-Efficient Fine-Tuning (PEFT) seperti LoRA untuk efisiensi komputasi.]
+LLM pada dasarnya adalah model probabilistik. Jika tidak diarahkan dengan benar, ia akan memberikan jawaban yang sangat umum atau bahkan melenceng. Untuk mengontrolnya, kita punya spektrum teknik mulai dari yang paling murah (_Prompting_) hingga yang butuh komputasi lebih (_Fine-Tuning_).
+1. Advanced Prompting
+Jangan hanya menyuruh model bekerja tanpa konteks (Zero-Shot). Berikan ia kerangka berpikir:
+	- **Few-Shot Prompting:** Berikan 2-3 pasang contoh _input-output_ di dalam _prompt_ agar model meniru formatnya.
+	- **Chain-of-Thought (CoT):** Tambahkan instruksi sakti seperti ==_"Let's think step by step"_==. Ini memaksa model menguraikan logika sebelum menjawab, yang secara drastis meningkatkan akurasi pada tugas penalaran yang kompleks.
+2. Parameter-Efficient Fine-Tuning (PEFT)
+Bagaimana jika kita ingin model AI kita sangat jago memahami istilah medis lokal atau gaya bahasa spesifik? Kita lakukan _fine-tuning_. Namun, melatih ulang model raksasa butuh GPU berharga ratusan juta.
+Solusinya adalah teknik **LoRA (Low-Rank Adaptation)**. Alih-alih mengubah miliaran bobot (_weights_) asli model, LoRA hanya menambahkan "lapisan tipis" bobot baru yang ukurannya sangat kecil.
+
+> [!NOTE] 
+Jika targetmu adalah audiens lokal, menggunakan arsitektur spesifik seperti IndoBERT lalu di-_fine-tune_ untuk tugas klasifikasi bahasa Indonesia seringkali jauh lebih efisien, ringan, dan akurat daripada memaksa model generik bahasa Inggris bekerja dua kali lipat.
+
+- Checklist Pengendalian Model:
+	- [ ] Validasi _prompt_ dengan _edge-cases_ (kasus ekstrem).
+	- [ ] Jika format _output_ kacau, coba Few-Shot sebelum lompat ke Fine-tuning.
+	- [ ] Jika memilih Fine-Tuning, gunakan kuantisasi (8-bit atau 4-bit) agar muat di memori GPU standar.
+
+%% Ref: Hu, E. J., et al. (2021). LoRA: Low-Rank Adaptation of Large Language Models. arXiv. %%
+### Tackling Hallucinations with Retrieval-Augmented Generation (RAG)
+^[Subbab ini membedah arsitektur RAG sebagai solusi untuk mengatasi halusinasi LLM dengan cara mengintegrasikan model generatif dengan database vektor yang berisi dokumen faktual.]
+Masalah terbesar LLM adalah halusinasi—mereka terlalu percaya diri saat menjawab sesuatu yang sebenarnya tidak mereka ketahui. **RAG** adalah solusi _state-of-the-art_ saat ini. Idenya adalah memberikan LLM "buku ujian terbuka" berupa _database_ dokumen kita (seperti PDF pedoman teknis, dataset kompetisi, atau arsip riset).
+
+Anatomi Arsitektur RAG:
+1. **Ingestion & Chunking:** Memecah dokumen panjang menjadi paragraf kecil.
+2. **Embedding:** Mengubah teks menjadi representasi vektor (array angka) agar mesin paham makna semantiknya.
+3. **Vector Store:** Menyimpan vektor ke _database_ khusus (misal: ChromaDB, FAISS).
+4. **Retrieval:** Saat _user_ bertanya, sistem mencari paragraf dengan vektor paling mirip lalu mengirimkannya sebagai konteks ke LLM.
+
+| Aspek          | Fine-Tuning                                    | RAG                                                    |
+| -------------- | ---------------------------------------------- | ------------------------------------------------------ |
+| Fokus Utama    | Mengajari model gaya bahasa atau _skill_ baru. | Memberikan model akses ke pengetahuan/fakta eksternal. |
+| Pembaruan Data | Harus _training_ ulang setiap ada data baru.   | Cukup _upload_ dokumen baru ke Vector Database.        |
+| Biaya & Waktu  | Sangat Tinggi & Lambat.                        | Rendah & Sangat Cepat.                                 |
+```python
+from langchain.vectorstores import Chroma
+from langchain.embeddings import HuggingFaceEmbeddings
+
+# Inisialisasi model embedding untuk mengubah teks ke vektor
+embed_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+
+# Load database yang sudah berisi dokumen kompetisi/riset
+vector_db = Chroma(persist_directory="./my_vector_db", embedding_function=embed_model)
+
+query = "Apa batas maksimal halaman untuk proposal riset ini?"
+# Mengambil 3 dokumen paling relevan
+retrieved_docs = vector_db.similarity_search(query, k=3)
+
+print("Konteks untuk LLM:", retrieved_docs[0].page_content)
+```
+
+%% Ref: Lewis, P., et al. (2020). Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. NeurIPS. %%
+
+
+
+
 
 %%
 [https://www.youtube.com/watch?v=LsPi2wPZft8](https://www.youtube.com/watch?v=LsPi2wPZft8)
