@@ -44,6 +44,10 @@ unique value: buku pedoman compact, tanpa bertele tele
 	- [[#Model and Evaluation#Model Training and Evaluation data|Model Training and Evaluation data]]
 	- [[#Model and Evaluation#Hyperparameter tuning|Hyperparameter tuning]]
 	- [[#Model and Evaluation#Ensemble Learning|Ensemble Learning]]
+- [[#Deep Learning, PyTorch, dan Era Generative AI|Deep Learning, PyTorch, dan Era Generative AI]]
+	- [[#Membangun Neural Network dengan PyTorch|Build a Neural Network]]
+	- [[#Transfer Learning|Transfer Learning]]
+	- - [[#Large Language Models (LLM) dan Text Geneartion|Large Language Models]]
 - [[#Great Books on Everything Data and Machine Learning|Great Books on Everything Data and Machine Learning]]
 	- [[#Great Books on Everything Data and Machine Learning#AI and Machine Learning|AI and Machine Learning]]
 	- [[#Great Books on Everything Data and Machine Learning#Kaggle and Interviews|Kaggle and Interviews]]
@@ -55,8 +59,6 @@ unique value: buku pedoman compact, tanpa bertele tele
 Data dan kecerdasan buatan (AI) sekarang sudah jadi bagian penting di banyak bidang—bisnis, pendidikan, sampai riset ilmiah. Perkembangannya yang super cepat bikin kebutuhan akan orang yang paham data dan ML terus naik. Alhasil, kemampuan praktikal dalam data science dan machine learning jadi skill wajib buat mahasiswa maupun praktisi yang ingin membangun portofolio proyek yang solid.
 
 Masalahnya, materi belajar tentang data dan AI itu tersebar dan sering tidak terstruktur. Di Indonesia sendiri, sumber yang ringkas, relevan, dan berbahasa Indonesia masih terbatas, sementara banyak pilihan belajar malah panjang, dan mahal, atau terlalu fokus ke teori. Akhirnya banyak orang bingung harus mulai dari mana, padahal yang dibutuhkan sebenarnya panduan praktis yang bisa langsung dipakai untuk ngerjain proyek, ikut kompetisi, atau membangun solusi AI sederhana.
-
-aku akuakuakauakuakau
 
 Handbook ini disusun untuk menjawab kebutuhan tersebut. Dengan format yang compact, praktikal, dan mudah dipahami, buku ini membantu pembaca mempelajari dasar-dasar data science dan machine learning secara cepat dan tepat sasaran. Materinya dikurasi dari pengalaman langsung, baik dari perkuliahan data science maupun pengerjaan proyek di dunia kerja, sehingga pembaca bisa fokus pada konsep yang penting, applicable, dan yang paling penting berbahasa Indonesia.
 
@@ -1078,6 +1080,151 @@ Meskipun stacking terkesan kompleks, namun menggunakan stacking dapat meningkatk
 - Cross-validation selection: does internal cross-validation to select best of $M$ models
 - Any combination of different ensembling techniques
 
+
+## Deep Learning, PyTorch, dan Era Generative AI
+### Build Neural Network With PyTorch
+^[transisi dari machine learning klasik ke deep learning, implementasi neural network menggunakan PyTorch]
+Kalau di bab sebelumnya kita membahas algoritma ML klasik yang luar biasa efisien untuk data tabular, sekarang kita masuk ke ranah data yang tidak terstruktur (unstructured data) seperti gambar, audio, dan teks bahasa alami yang kompleks. Di sinilah _Deep Learning_ (DL) bersinar.
+
+Deep Learning menggunakan arsitektur _Artificial Neural Network_ (ANN) yang terinspirasi dari jaringan saraf otak. Alih-alih melakukan _feature engineering_ secara manual (seperti mencari tepi gambar atau menghitung frekuensi kata), model DL mampu mengekstraksi fitur-fitur tersebut secara hierarkis dan otomatis langsung dari data mentah.
+
+**Membangun Neural Network dengan Pytorch**
+Saat ini Pytorch menjadi standar industri karena pendekatannya yang sangat *Pythonic* dan menggunakan [*Dynamic Computational Graph*](https://www.geeksforgeeks.org/deep-learning/dynamic-vs-static-computational-graphs-pytorch-and-tensorflow/). Dimana, kamu bisa debugging model jaringan sarafmu semudah kamu melakukan`print()`pada kode python biasa
+
+Dalam praktiknya, Neural Network  terdiri dari tiga bagian utama: Input, Hidden Layers (tempat kalkulasi utama), dan Output.
+
+Setiap koneksi antar "neuron" memiliki bobot (_weights_). Tujuan dari proses _training_ adalah mencari kombinasi bobot yang paling optimal agar prediksi (output) sesuai dengan target sebenarnya, menggunakan algoritma optimasi seperti *[Gradient Descent](https://www.ibm.com/think/topics/gradient-descent#:~:text=Gradient%20descent%20is%20an%20optimization,between%20predicted%20and%20actual%20results.)* dan proses hitung mundur yang disebut [_Backpropagation_](_Backpropagation_).
+```python
+import torch 
+import torch.nn as nn 
+import torch.optim as optim
+
+# 1. Mendefinisikan Arsitektur Model (Subclassing nn.Module) 
+class SimpleClassifier(nn.Module): 
+	def __init__(self, input_size, num_classes): 
+		super(SimpleClassifier, self).__init__() 
+		# Hidden layer pertama: mengubah dimensi input menjadi 64 
+		self.layer1 = nn.Linear(input_size, 64) 
+		self.relu = nn.ReLU() 
+		# Fungsi aktivasi non-linear 
+		# Output layer: mengubah 64 menjadi jumlah kelas target 
+		self.layer2 = nn.Linear(64, num_classes) 
+
+def forward(self, x): 
+	# Alur maju (Forward pass) 
+	out = self.layer1(x) 
+	out = self.relu(out) 
+	out = self.layer2(out) 
+	return out
+
+# 2. Inisialisasi Model, Loss, dan Optimizer 
+model = SimpleClassifier(input_size=20, num_classes=2) 
+criterion = nn.CrossEntropyLoss() # Sering dipakai untuk klasifikasi 
+optimizer = optim.Adam(model.parameters(), lr=0.001) 
+# Dummy data forward pass 
+dummy_input = torch.randn(5, 20) # 5 sampel, 20 fitur 
+prediksi = model(dummy_input) 
+print(prediksi.shape) # Output: torch.Size([5, 2])
+```
+>[!INFO]
+>💡 Berbeda dengan Scikit-Learn yang tinggal panggil `.fit()`, di PyTorch kamu harus menulis _training loop_ secara manual (menghitung loss, reset gradient dengan `optimizer.zero_grad()`, dan update bobot dengan `optimizer.step()`). Ini memberikan kontrol penuh, namun jika ingin lebih instan, kamu bisa menggunakan _wrapper_ seperti [PyTorch Lightning](https://lightning.ai/).
+
+%% Referensi: Paszke, A., et al. (2019). PyTorch: An Imperative Style, High-Performance Deep Learning Library. %%
+
+### Transfer Learning
+^[Subbab ini membahas efisiensi Transfer Learning, yakni teknik mengadaptasi model yang sudah cerdas (_pre-trained_) untuk menyelesaikan masalah spesifik dengan data dan komputasi yang minimal.]
+Membangun dan melatih model deep learning dari nol (*from scratch*) membutuhkan dataset raksasa (jutaan sampel) dan komputasi GPU yang mahal berhari-hari. Di dunia nyata , solusi untuk masalah ini adalah ==Tranfer Learning==. 
+Idenya sederhana : Kita mengambil "otak" dari model yang sudah dilatih oleh raksasa teknologi pada dataset masif (seperti Imagenet yang berisi 14 juta gambar), lalu kita sesuaikan sedikit untuk tugas spesifik kita. 
+
+| Strategi Transfer Learning | Kapan Digunakan ?                                             | Penjelasan                                                                                                                     |
+| -------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| Feature Extraction         | Datataset baru berukuran kecil & mirip dengan data asli model | Kunci (_freeze_) seluruh _hidden layers_. Hanya ganti dan latih _output layer_ yang baru. Cepat dan menghindari _overfitting_. |
+| Fine-Tuning                | Dataset baru berukuran lumayan besar                          | Buka kunci (_unfreeze_) beberapa _layer_ terakhir agar model bisa sedikit beradaptasi dengan fitur spesifik pada data barumu.  |
+
+```python
+import torchvision.models as models
+
+# 1. Unduh pre-trained model ResNet18 (sudah terlatih mengenali 1000 objek)
+model_tl = models.resnet18(weights='DEFAULT')
+
+# 2. Feature Extraction: Freeze semua parameter bawaan 
+for param in model_tl.parameters(): 
+	param.requires_grad = False
+	
+# 3. Ganti kepala (output layer) sesuai kebutuhan proyek kita (misal: 3 penyakit daun) 
+num_ftrs = model_tl.fc.in_features 
+model_tl.fc = nn.Linear(num_ftrs, 3)
+
+# Sekarang, hanya model_tl.fc yang akan diupdate bobotnya saat training!
+```
+
+%% He, K., et al. (2016). Deep Residual Learning for Image Recognition. CVPR. %%
+
+### Large Language Models (LLM) dan Text Geneartion
+^[Subbab ini memperkenalkan fondasi Large Language Models (LLM) beserta arsitektur Transformer dan mekanisme _Self-Attention_ yang merevolusi kemampuan AI dalam memahami dan menghasilkan teks.]
+Perkembangan  masif di era AI saat ini didorong oleh model berbasis arsitektur [Transformer](https://www.ibm.com/think/topics/transformer-model). Berbeda dengan model teks jadul (RNN/LSTM) yang membaca kalimat kata per kata, Transformer memproses seluruh kata secara paralel.
+
+Rahasia utamanya ada pada mekanisme ==Self-Attention==. Mekanisme ini memungkinkan model untuk menimbang tingkat pentingnya setiap kata terhadap kata lain dalam satu kalimat, terlepas dari seberapa jauh jaraknya . Inilah cikal bakal lahirnya model raksasa (LLM) seperti GPT, BERT, Llama, dan Claude. 
+
+## Advance LLM Implementation
+### Mastering LLM Control : Prompt Engineering & Fine-Tuning
+^[Subbab ini membahas teknik mengendalikan output LLM, mulai dari rekayasa prompt (Zero-Shot, Few-Shot, Chain-of-Thought) hingga penyesuaian model menggunakan teknik Parameter-Efficient Fine-Tuning (PEFT) seperti LoRA untuk efisiensi komputasi.]
+LLM pada dasarnya adalah model probabilistik. Jika tidak diarahkan dengan benar, ia akan memberikan jawaban yang sangat umum atau bahkan melenceng. Untuk mengontrolnya, kita punya spektrum teknik mulai dari yang paling murah (_Prompting_) hingga yang butuh komputasi lebih (_Fine-Tuning_).
+1. Advanced Prompting
+Jangan hanya menyuruh model bekerja tanpa konteks (Zero-Shot). Berikan ia kerangka berpikir:
+	- **Few-Shot Prompting:** Berikan 2-3 pasang contoh _input-output_ di dalam _prompt_ agar model meniru formatnya.
+	- **Chain-of-Thought (CoT):** Tambahkan instruksi sakti seperti ==_"Let's think step by step"_==. Ini memaksa model menguraikan logika sebelum menjawab, yang secara drastis meningkatkan akurasi pada tugas penalaran yang kompleks.
+2. Parameter-Efficient Fine-Tuning (PEFT)
+Bagaimana jika kita ingin model AI kita sangat jago memahami istilah medis lokal atau gaya bahasa spesifik? Kita lakukan _fine-tuning_. Namun, melatih ulang model raksasa butuh GPU berharga ratusan juta.
+Solusinya adalah teknik **LoRA (Low-Rank Adaptation)**. Alih-alih mengubah miliaran bobot (_weights_) asli model, LoRA hanya menambahkan "lapisan tipis" bobot baru yang ukurannya sangat kecil.
+
+> [!NOTE] 
+Jika targetmu adalah audiens lokal, menggunakan arsitektur spesifik seperti IndoBERT lalu di-_fine-tune_ untuk tugas klasifikasi bahasa Indonesia seringkali jauh lebih efisien, ringan, dan akurat daripada memaksa model generik bahasa Inggris bekerja dua kali lipat.
+
+- Checklist Pengendalian Model:
+	- [ ] Validasi _prompt_ dengan _edge-cases_ (kasus ekstrem).
+	- [ ] Jika format _output_ kacau, coba Few-Shot sebelum lompat ke Fine-tuning.
+	- [ ] Jika memilih Fine-Tuning, gunakan kuantisasi (8-bit atau 4-bit) agar muat di memori GPU standar.
+
+%% Ref: Hu, E. J., et al. (2021). LoRA: Low-Rank Adaptation of Large Language Models. arXiv. %%
+### Tackling Hallucinations with Retrieval-Augmented Generation (RAG)
+^[Subbab ini membedah arsitektur RAG sebagai solusi untuk mengatasi halusinasi LLM dengan cara mengintegrasikan model generatif dengan database vektor yang berisi dokumen faktual.]
+Masalah terbesar LLM adalah halusinasi—mereka terlalu percaya diri saat menjawab sesuatu yang sebenarnya tidak mereka ketahui. **RAG** adalah solusi _state-of-the-art_ saat ini. Idenya adalah memberikan LLM "buku ujian terbuka" berupa _database_ dokumen kita (seperti PDF pedoman teknis, dataset kompetisi, atau arsip riset).
+
+Anatomi Arsitektur RAG:
+1. **Ingestion & Chunking:** Memecah dokumen panjang menjadi paragraf kecil.
+2. **Embedding:** Mengubah teks menjadi representasi vektor (array angka) agar mesin paham makna semantiknya.
+3. **Vector Store:** Menyimpan vektor ke _database_ khusus (misal: ChromaDB, FAISS).
+4. **Retrieval:** Saat _user_ bertanya, sistem mencari paragraf dengan vektor paling mirip lalu mengirimkannya sebagai konteks ke LLM.
+
+| Aspek          | Fine-Tuning                                    | RAG                                                    |
+| -------------- | ---------------------------------------------- | ------------------------------------------------------ |
+| Fokus Utama    | Mengajari model gaya bahasa atau _skill_ baru. | Memberikan model akses ke pengetahuan/fakta eksternal. |
+| Pembaruan Data | Harus _training_ ulang setiap ada data baru.   | Cukup _upload_ dokumen baru ke Vector Database.        |
+| Biaya & Waktu  | Sangat Tinggi & Lambat.                        | Rendah & Sangat Cepat.                                 |
+```python
+from langchain.vectorstores import Chroma
+from langchain.embeddings import HuggingFaceEmbeddings
+
+# Inisialisasi model embedding untuk mengubah teks ke vektor
+embed_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+
+# Load database yang sudah berisi dokumen kompetisi/riset
+vector_db = Chroma(persist_directory="./my_vector_db", embedding_function=embed_model)
+
+query = "Apa batas maksimal halaman untuk proposal riset ini?"
+# Mengambil 3 dokumen paling relevan
+retrieved_docs = vector_db.similarity_search(query, k=3)
+
+print("Konteks untuk LLM:", retrieved_docs[0].page_content)
+```
+
+%% Ref: Lewis, P., et al. (2020). Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. NeurIPS. %%
+
+
+
+
+
 %%
 [https://www.youtube.com/watch?v=LsPi2wPZft8](https://www.youtube.com/watch?v=LsPi2wPZft8)
 https://www.kaggle.com/code/anuragbantu/stacking-ensemble-learning-beginner-s-guide
@@ -1128,6 +1275,7 @@ https://ml-course.github.io/master/notebooks/04%20-%20Ensemble%20Learning.html
 [Building a Second Brain](https://www.amazon.com/Building-Second-Brain-Organize-Potential/dp/B09MGFGV3J/) → A book that kickstarted my note taking journey, this helps me take notes with purpose and help me remember and document a lot of hard concepts easier.
 
 [How to be a Productivity Ninja](https://www.amazon.com/How-Productivity-Ninja-Worry-Achieve/dp/1848316836) → Very great book on productivity, the book provides great tips and techniques which helped me a lot.
+
 
 ---
 
